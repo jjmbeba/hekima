@@ -2,11 +2,12 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { MoveRight } from "lucide-react";
 import { ModeToggle } from "../ModeToggle";
 import { Button } from "../ui/button";
+import Logo from "../common/Logo";
 
 const Navbar = () => {
   return (
     <div className="flex items-center justify-between p-8">
-      <h1>Hekima</h1>
+      <Logo />
       <div className="flex items-center gap-5">
         <div className="mr-6">
           <ModeToggle />
