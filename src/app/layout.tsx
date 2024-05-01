@@ -12,7 +12,10 @@ const ibm = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hekima",
+  title: {
+    template: "%s | Hekima",
+    default: "Home | Hekima",
+  },
   description: "Your modern solution for student performance analysis",
 };
 
