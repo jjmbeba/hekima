@@ -1,15 +1,12 @@
 "use client";
 
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { MoveRight } from "lucide-react";
-import { ModeToggle } from "../ModeToggle";
-import { Button } from "../ui/button";
-import Logo from "../common/Logo";
 import Link from "next/link";
+import { ModeToggle } from "../ModeToggle";
+import Logo from "../common/Logo";
+import { Button } from "../ui/button";
 
-import { headers } from "next/headers";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -25,20 +22,16 @@ const Navbar = () => {
         <div className="mr-6">
           <ModeToggle />
         </div>
-        <SignedOut>
-          <Button asChild>
-            <Link href={"/signup"}>
-              <MoveRight className="mr-2 h-4 w-4" />
-              Get Started
-            </Link>
-          </Button>
-          <Button variant={"secondary"}>
-            <Link href={"/login"}>Login</Link>
-          </Button>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+
+        <Button asChild>
+          <Link href={"/signup"}>
+            <MoveRight className="mr-2 h-4 w-4" />
+            Get Started
+          </Link>
+        </Button>
+        <Button variant={"secondary"}>
+          <Link href={"/login"}>Login</Link>
+        </Button>
       </div>
     </div>
   );
