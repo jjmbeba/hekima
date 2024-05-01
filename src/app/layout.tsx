@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/navigation/Navbar";
+import QueryProvider from "@/providers/QueryProvider";
+import type { Metadata } from "next";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
+import "./globals.css";
+
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 const ibm = IBM_Plex_Mono({
@@ -25,8 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-      <html lang="en">
-        <body className={ibm.className}>
+    <html lang="en">
+      <body className={ibm.className}>
+        <QueryProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,7 +39,9 @@ export default function RootLayout({
             <Navbar />
             {children}
           </ThemeProvider>
-        </body>
-      </html>
+        </QueryProvider>
+        <Toaster richColors/>
+      </body>
+    </html>
   );
 }
