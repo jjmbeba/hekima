@@ -1,9 +1,12 @@
+import { LampContainer } from '@/components/ui/lamp'
 import Image from 'next/image'
 
 export default function Home() {
   return (
     <main className="">
-     Hello there
+     <LampContainer>
+        Illuminate your child&apos;s <br /> way to success
+     </LampContainer>
     </main>
   )
 }
