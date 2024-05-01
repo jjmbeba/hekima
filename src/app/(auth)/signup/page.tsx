@@ -8,6 +8,7 @@ import GoogleIcon from "@/components/common/icons/GoogleIcon";
 import { MoveLeft } from "lucide-react";
 import GoBackButton from "@/components/common/buttons/GoBackButton";
 import Logo from "@/components/common/Logo";
+import SignupForm from "@/components/forms/SignupForm";
 
 const Login = () => {
   return (
@@ -24,36 +25,10 @@ const Login = () => {
               Enter your email below to signup for an account
             </p>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full">
-              Get started
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full flex items-center gap-3"
-            >
-              <GoogleIcon />
-              Get started with Google
-            </Button>
-          </div>
+          <SignupForm/>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/signup" className="underline">
+            <Link href="/login" className="underline">
               Log in
             </Link>
           </div>
