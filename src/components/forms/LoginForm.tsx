@@ -36,9 +36,12 @@ const LoginForm = () => {
   const { mutate: loginUser, isPending: isLoginPending } = useMutation({
     mutationKey: ["login"],
     mutationFn: (values: z.infer<typeof loginSchema>) => login(values),
-    onError:(error) => {
-      toast.error(error.message)
-    }
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("Login successful");
+    },
   });
 
   function onSubmit(values: z.infer<typeof loginSchema>) {

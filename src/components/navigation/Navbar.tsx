@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const pathname = usePathname();
 
-  const excludedPaths = ["/login", "/signup"];
+  const excludedPaths = ["/login", "/signup", "/dashboard"];
 
   if (excludedPaths.includes(pathname)) return;
 
@@ -22,7 +22,6 @@ const Navbar = () => {
         <div className="mr-6">
           <ModeToggle />
         </div>
-
         <Button asChild>
           <Link href={"/signup"}>
             <MoveRight className="mr-2 h-4 w-4" />

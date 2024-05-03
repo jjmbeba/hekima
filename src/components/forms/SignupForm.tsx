@@ -19,6 +19,10 @@ import {
 import { Input } from "@/components/ui/input";
 import GoogleIcon from "../common/icons/GoogleIcon";
 import { signupSchema } from "@/lib/schemas";
+import { useMutation } from "@tanstack/react-query";
+import { signup } from "@/app/(auth)/actions";
+import { Loader } from "lucide-react";
+import { toast } from "sonner";
 
 const SignupForm = () => {
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -30,8 +34,19 @@ const SignupForm = () => {
     },
   });
 
+  const { mutate: signUp, isPending: isSignupPending } = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: (values: z.infer<typeof signupSchema>) => signup(values),
+    onSuccess: () => {
+      toast.success("User account created successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   function onSubmit(values: z.infer<typeof signupSchema>) {
-    console.log(values);
+    signUp(values);
   }
 
   return (
@@ -78,7 +93,8 @@ const SignupForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={isSignupPending}>
+          {isSignupPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
           Get Started
         </Button>
         <Button

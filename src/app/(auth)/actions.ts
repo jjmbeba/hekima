@@ -15,18 +15,30 @@ export async function login(formData: z.infer<typeof loginSchema>) {
   if (error) throw new Error(error.message);
 
   // revalidatePath("/", "layout");
-  // redirect("/");
+  redirect("/dashboard");
+}
+
+export async function logout() {
+  const supabase = createClient();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) throw new Error(error.message);
+
+  redirect("/");
 }
 
 export async function signup(formData: z.infer<typeof signupSchema>) {
   const supabase = createClient();
 
-  const { error } = await supabase.auth.signUp(formData);
+  const { error } = await supabase.auth.signUp({
+    email: formData.email,
+    password: formData.password,
+  });
 
-  if (error) {
-    redirect("/error");
-  }
+  console.log(error);
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  if (error) throw new Error(error.message);
+
+  redirect("/dashboard");
 }
