@@ -1,13 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import GoogleIcon from "@/components/common/icons/GoogleIcon";
-import { MoveLeft } from "lucide-react";
-import GoBackButton from "@/components/common/buttons/GoBackButton";
 import Logo from "@/components/common/Logo";
+import GoBackButton from "@/components/common/buttons/GoBackButton";
 import SignupForm from "@/components/forms/SignupForm";
 
 const Login = () => {

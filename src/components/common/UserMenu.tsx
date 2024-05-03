@@ -16,6 +16,7 @@ import { Skeleton } from "../ui/skeleton";
 import { redirect } from "next/navigation";
 import { logout } from "@/app/(auth)/actions";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const UserMenu = () => {
   const supabase = createClient();
@@ -30,6 +31,8 @@ const UserMenu = () => {
       return data;
     },
   });
+
+  console.log(user);
 
   const { mutate: logoutUser } = useMutation({
     mutationKey: ["user"],
@@ -56,6 +59,11 @@ const UserMenu = () => {
     },
   });
 
+  const avatar_url: string | undefined =
+    user?.user.identities?.[0].identity_data?.avatar_url;
+
+  console.log(avatar_url);
+
   return (
     <div>
       {isUserLoading ? (
@@ -68,7 +76,16 @@ const UserMenu = () => {
               size="icon"
               className="overflow-hidden rounded-full"
             >
-              <User />
+              {avatar_url ? (
+                <Image
+                  src={avatar_url}
+                  width={36}
+                  height={36}
+                  alt="profile-image"
+                />
+              ) : (
+                <User />
+              )}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

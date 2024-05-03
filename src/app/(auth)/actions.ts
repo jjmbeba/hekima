@@ -36,9 +36,23 @@ export async function signup(formData: z.infer<typeof signupSchema>) {
     password: formData.password,
   });
 
-  console.log(error);
-
   if (error) throw new Error(error.message);
 
   redirect("/dashboard");
+}
+
+export async function signInWithGoogle() {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
 }

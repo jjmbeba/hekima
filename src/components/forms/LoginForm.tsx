@@ -23,6 +23,8 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "@/app/(auth)/actions";
 import { Loader, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 
 const LoginForm = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -43,6 +45,46 @@ const LoginForm = () => {
       toast.success("Login successful");
     },
   });
+
+    const { mutate: startGoogleSignIn, isPending } = useMutation({
+      mutationKey: ["google-signup"],
+      mutationFn: async () => {
+        const supabase = createClient();
+
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            queryParams: {
+              access_type: "offline",
+              prompt: "consent",
+            },
+          },
+        });
+
+        if (error) throw new Error(error.message);
+      },
+      onMutate: () => {
+        toast(
+          <div className="flex items-center">
+            <Loader className="mr-2 h-4 w-4 animate-spin" /> Loading Google Sign
+            in
+          </div>,
+          {
+            id: "google-sign-in",
+          }
+        );
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onSettled: () => {
+        toast.dismiss("google-sign-in");
+      },
+      onSuccess: () => {
+        redirect("/dashboard");
+      },
+    });
+
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     loginUser(values);
@@ -85,6 +127,7 @@ const LoginForm = () => {
           type="button"
           variant="outline"
           className="w-full flex items-center gap-3"
+          onClick={() => startGoogleSignIn()}
         >
           <GoogleIcon />
           Log In with Google

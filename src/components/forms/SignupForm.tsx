@@ -1,28 +1,28 @@
 "use client";
 
 import { z } from "zod";
-import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { signup } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import GoogleIcon from "../common/icons/GoogleIcon";
 import { signupSchema } from "@/lib/schemas";
+import { createClient } from "@/utils/supabase/client";
 import { useMutation } from "@tanstack/react-query";
-import { signup } from "@/app/(auth)/actions";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
+import GoogleIcon from "../common/icons/GoogleIcon";
+import { redirect } from "next/navigation";
 
 const SignupForm = () => {
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -42,6 +42,45 @@ const SignupForm = () => {
     },
     onError: (error) => {
       toast.error(error.message);
+    },
+  });
+
+  const { mutate: startGoogleSignIn, isPending } = useMutation({
+    mutationKey: ["google-signup"],
+    mutationFn: async () => {
+      const supabase = createClient();
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+        },
+      });
+
+      if (error) throw new Error(error.message);
+    },
+    onMutate: () => {
+      toast(
+        <div className="flex items-center">
+          <Loader className="mr-2 h-4 w-4 animate-spin" /> Loading Google Sign
+          in
+        </div>,
+        {
+          id: "google-sign-in",
+        }
+      );
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSettled: () => {
+      toast.dismiss("google-sign-in");
+    },
+    onSuccess: () => {
+      redirect("/dashboard");
     },
   });
 
@@ -101,8 +140,13 @@ const SignupForm = () => {
           type="button"
           variant="outline"
           className="w-full flex items-center gap-3"
+          onClick={() => startGoogleSignIn()}
         >
-          <GoogleIcon />
+          {isPending ? (
+            <Loader className="h-4 w-4 animate-spin" />
+          ) : (
+            <GoogleIcon />
+          )}
           Get started with Google
         </Button>
       </form>
