@@ -6,8 +6,8 @@ import { IBM_Plex_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ViewTransitions } from "next-view-transitions";
 
-const inter = Inter({ subsets: ["latin"] });
 const ibm = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -27,20 +27,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={ibm.className}>
-        <QueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </QueryProvider>
-        <Toaster richColors/>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en">
+        <body className={ibm.className}>
+          <QueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </QueryProvider>
+          <Toaster richColors />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

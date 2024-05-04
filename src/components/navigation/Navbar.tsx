@@ -1,34 +1,17 @@
-"use client";
-
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "../ModeToggle";
 import Logo from "../common/Logo";
 import { Button } from "../ui/button";
 
-import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@/utils/supabase/client";
+import { useQuery } from "@tanstack/react-query";
 import UserMenu from "../common/UserMenu";
 
-const Navbar = () => {
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const supabase = createClient();
+const Navbar = async () => {
+  const supabase = createClient();
 
-      const { data, error } = await supabase.auth.getUser();
-
-      return data;
-    },
-  });
-
-  
-  const pathname = usePathname();
-
-  const excludedPaths = ["/login", "/signup", "/dashboard"];
-
-  if (excludedPaths.includes(pathname)) return;
+  const { data: user, error } = await supabase.auth.getUser();
 
   return (
     <div className="flex items-center justify-between p-8">
