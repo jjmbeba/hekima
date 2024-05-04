@@ -62,7 +62,7 @@ const Sidebar = () => {
             <span className="sr-only">Hekima</span>
           </Link>
           {pages.map(({ text, link, icon }) => (
-            <SidebarLink text={text} link={link} icon={icon} />
+            <SidebarLink key={link} text={text} link={link} icon={icon} />
           ))}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 py-4">

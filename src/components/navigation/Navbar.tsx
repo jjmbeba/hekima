@@ -12,12 +12,6 @@ import { createClient } from "@/utils/supabase/client";
 import UserMenu from "../common/UserMenu";
 
 const Navbar = () => {
-  const pathname = usePathname();
-
-  const excludedPaths = ["/login", "/signup", "/dashboard"];
-
-  if (excludedPaths.includes(pathname)) return;
-
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -29,6 +23,13 @@ const Navbar = () => {
     },
   });
 
+  
+  const pathname = usePathname();
+
+  const excludedPaths = ["/login", "/signup", "/dashboard"];
+
+  if (excludedPaths.includes(pathname)) return;
+
   return (
     <div className="flex items-center justify-between p-8">
       <Logo />
@@ -39,7 +40,7 @@ const Navbar = () => {
         {user?.user ? (
           <div className="flex items-center gap-5">
             <Button asChild>
-              <Link href={'/dashboard'}>Go to Dashboard</Link>
+              <Link href={"/dashboard"}>Go to Dashboard</Link>
             </Button>
             <UserMenu />
           </div>

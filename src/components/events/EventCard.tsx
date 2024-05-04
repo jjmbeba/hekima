@@ -1,17 +1,22 @@
-import { DollarSign } from "lucide-react";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tables } from "@/database.types";
+import dayjs from "dayjs";
 
-export default function EventCard() {
+type Props = Tables<"events">;
+export default function EventCard({ name, date, description, location }: Props) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-        <DollarSign className="h-4 w-4 text-muted-foreground" />
+        <CardTitle className="text-sm font-medium">{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">$45,231.89</div>
-        <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+        <div className="text-xl font-bold">{description}</div>
+        <p className="text-sm text-muted-foreground mt-2 font-medium">
+          @ {location}
+        </p>
+        <p className="text-xs text-muted-foreground">
+          {dayjs(date).format("ddd, D MMM YYYY")}
+        </p>
       </CardContent>
     </Card>
   );

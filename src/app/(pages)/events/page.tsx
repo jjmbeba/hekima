@@ -1,5 +1,6 @@
 import ViewOptions from "@/components/common/ViewOptions";
 import EventCard from "@/components/events/EventCard";
+import { Tables } from "@/database.types";
 import { createClient } from "@/utils/supabase/server";
 import { Ghost } from "lucide-react";
 import { Metadata } from "next";
@@ -27,13 +28,9 @@ const page = async () => {
             <h1 className="font-bold text-2xl">
               Available events ({events?.length})
             </h1>
-            <ViewOptions/>
+            <ViewOptions />
           </div>
-          <div className="grid grid-cols-4 sm:gap-4 mt-8">
-            {events?.map((event, index) => (
-              <EventCard key={index} />
-            ))}
-          </div>
+          <EventsCardList events={events!} />
         </div>
       )}
     </div>
@@ -41,3 +38,13 @@ const page = async () => {
 };
 
 export default page;
+
+const EventsCardList = ({ events }: { events: Tables<"events">[] }) => {
+  return (
+    <div className="grid grid-cols-4 sm:gap-4 mt-8">
+      {events?.map((event) => (
+        <EventCard key={event.id} {...event} />
+      ))}
+    </div>
+  );
+};
