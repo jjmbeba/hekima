@@ -4,8 +4,14 @@ import Link from "next/link";
 import Logo from "@/components/common/Logo";
 import GoBackButton from "@/components/common/buttons/GoBackButton";
 import SignupForm from "@/components/forms/SignupForm";
+import { Metadata } from "next";
 
-const Login = () => {
+export const metadata: Metadata = {
+  title: "SignUp",
+};
+
+
+const SignUp = () => {
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="absolute top-[5%] left-[5%] flex items-center gap-5">
@@ -42,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

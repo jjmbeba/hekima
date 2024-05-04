@@ -1,5 +1,8 @@
 "use client";
 
+import { Bell, BookOpenCheck, Brain, Calendar, Home, LineChart, LucideProps, MessageSquare, School2, Settings } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import {
   Tooltip,
@@ -7,9 +10,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import Link from "next/link";
-import { Brain, Home, LineChart, LucideProps, Settings } from "lucide-react";
-import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const pages = [
@@ -22,6 +22,31 @@ const Sidebar = () => {
       text: "Analytics",
       link: "/analytics",
       icon: LineChart,
+    },
+    {
+      text: "Classes",
+      link: "/classes",
+      icon: School2,
+    },
+    {
+      text: "Exams",
+      link: "/exams",
+      icon: BookOpenCheck,
+    },
+    {
+      text: "Events",
+      link: "/events",
+      icon: Calendar,
+    },
+    {
+      text: "Notifications",
+      link: "/notifications",
+      icon: Bell,
+    },
+    {
+      text: "Messaging",
+      link: "/messaging",
+      icon: MessageSquare,
     },
   ];
 

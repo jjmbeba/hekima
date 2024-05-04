@@ -9,6 +9,11 @@ import { MoveLeft } from "lucide-react";
 import GoBackButton from "@/components/common/buttons/GoBackButton";
 import Logo from "@/components/common/Logo";
 import LoginForm from "@/components/forms/LoginForm";
+import { Metadata } from "next";
+
+export const metadata:Metadata = {
+  title:"Login"
+}
 
 const Login = () => {
   return (
