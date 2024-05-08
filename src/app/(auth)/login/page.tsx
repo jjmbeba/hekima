@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +11,9 @@ import Logo from "@/components/common/Logo";
 import LoginForm from "@/components/forms/LoginForm";
 import { Metadata } from "next";
 
-export const metadata:Metadata = {
-  title:"Login"
-}
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 const Login = () => {
   return (
@@ -30,7 +30,7 @@ const Login = () => {
               Enter your email below to log into your account
             </p>
           </div>
-          <LoginForm/>
+          <LoginForm />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="underline">

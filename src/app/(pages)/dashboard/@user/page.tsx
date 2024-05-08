@@ -1,9 +1,3 @@
-import BreadCrumbs from "@/components/common/BreadCrumbs";
-import MobileMenu from "@/components/common/MobileMenu";
-import SearchBar from "@/components/common/SearchBar";
-import Sidebar from "@/components/common/Sidebar";
-import UserMenu from "@/components/common/UserMenu";
-import GoBackButton from "@/components/common/buttons/GoBackButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,7 +17,7 @@ export default async function Dashboard() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-
+      
     </div>
   );
 }

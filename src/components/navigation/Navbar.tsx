@@ -1,5 +1,5 @@
 import { MoveRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { ModeToggle } from "../ModeToggle";
 import Logo from "../common/Logo";
 import { Button } from "../ui/button";

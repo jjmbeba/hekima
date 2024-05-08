@@ -1,8 +1,8 @@
-import React from 'react'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import { Button } from '../ui/button';
-import { Brain, Home, LineChart, PanelLeft } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
+import { Brain, Home, LineChart, PanelLeft } from "lucide-react";
+import { Link } from "next-view-transitions";
 
 const MobileMenu = () => {
   return (
@@ -40,6 +40,6 @@ const MobileMenu = () => {
       </SheetContent>
     </Sheet>
   );
-}
+};
 
-export default MobileMenu
+export default MobileMenu;

@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 
 const BreadCrumbs = () => {
@@ -18,7 +18,7 @@ const BreadCrumbs = () => {
   const splitPathname = pathname.split("/");
 
   const constructLink = (endIndex: number) => {
-    return splitPathname.slice(0, endIndex + 1).join('/');
+    return splitPathname.slice(0, endIndex + 1).join("/");
   };
 
   return (

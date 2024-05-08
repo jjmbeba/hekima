@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 import Logo from "@/components/common/Logo";
 import GoBackButton from "@/components/common/buttons/GoBackButton";
@@ -9,7 +9,6 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "SignUp",
 };
-
 
 const SignUp = () => {
   return (
@@ -26,7 +25,7 @@ const SignUp = () => {
               Enter your email below to signup for an account
             </p>
           </div>
-          <SignupForm/>
+          <SignupForm />
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/login" className="underline">

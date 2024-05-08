@@ -18,25 +18,31 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import useViewStore from "@/stores/view-store";
 
 const options = [
   {
-    value: "list",
+    view: "list",
     label: "Lists",
   },
   {
-    value: "cards",
+    view: "cards",
     label: "Cards",
   },
   {
-    value: "calendar",
+    view: "calendar",
     label: "Calendar",
   },
 ];
 
 export default function ViewOptions() {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("list");
+
+  const [view, changeView] = useViewStore((state) => [
+    state.view,
+    state.changeView,
+  ]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -46,29 +52,29 @@ export default function ViewOptions() {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value}
+          {view}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search view type..." />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
-                  key={option.value}
-                  value={option.value}
+                  key={option.view}
+                  value={option.view}
                   onSelect={(currentValue) => {
-                    setValue(currentValue);
+                    if (currentValue) changeView(currentValue);
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === option.value ? "opacity-100" : "opacity-0"
+                      view === option.view ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {option.label}

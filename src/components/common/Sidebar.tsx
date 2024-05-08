@@ -1,7 +1,18 @@
 "use client";
 
-import { Bell, BookOpenCheck, Brain, Calendar, Home, LineChart, LucideProps, MessageSquare, School2, Settings } from "lucide-react";
-import Link from "next/link";
+import {
+  Bell,
+  BookOpenCheck,
+  Brain,
+  Calendar,
+  Home,
+  LineChart,
+  LucideProps,
+  MessageSquare,
+  School2,
+  Settings,
+} from "lucide-react";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import React from "react";
 import {
