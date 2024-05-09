@@ -116,7 +116,7 @@ const SidebarLink = ({
           className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
         >
           <Icon
-            className={`h-5 w-5 ${pathname === link ? "text-white" : ""}`}
+            className={`h-5 w-5 ${pathname === link ? "text-primary" : ""}`}
           />
           <span className="sr-only">{text}</span>
         </Link>

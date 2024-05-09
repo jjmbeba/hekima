@@ -32,8 +32,6 @@ const UserMenu = () => {
     },
   });
 
-  console.log(user);
-
   const { mutate: logoutUser } = useMutation({
     mutationKey: ["user"],
     mutationFn: logout,
@@ -62,7 +60,6 @@ const UserMenu = () => {
   const avatar_url: string | undefined =
     user?.user.identities?.[0].identity_data?.avatar_url;
 
-  console.log(avatar_url);
 
   return (
     <div>

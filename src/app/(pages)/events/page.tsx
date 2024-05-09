@@ -1,4 +1,6 @@
+import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import ViewOptions from "@/components/common/ViewOptions";
+import AddEventButton from "@/components/events/AddEventButton";
 import EventsView from "@/components/events/EventsView";
 import { createClient } from "@/utils/supabase/server";
 import { Ghost } from "lucide-react";
@@ -12,6 +14,8 @@ const page = async () => {
   const supabase = createClient();
 
   const { data: events, error } = await supabase.from("events").select("*");
+
+  const isUserAdmin = await checkIfUserIsAdmin();
 
   return (
     <div>
@@ -28,7 +32,10 @@ const page = async () => {
             </h1>
             <ViewOptions />
           </div>
-          <EventsView events={events!}/>
+          {isUserAdmin ? <div className="flex justify-end mt-5">
+            <AddEventButton />
+          </div> : null}
+          <EventsView events={events!} />
         </div>
       )}
     </div>

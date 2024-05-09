@@ -70,21 +70,21 @@ export const columns: ColumnDef<Event>[] = [
     header: "Description",
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "type",
+    header: "Event type",
     cell: ({ row }) => {
-      const { status } = row.original;
+      const { type } = row.original;
 
       return (
         <Badge
           variant={"outline"}
           className={
-            status === "mandatory"
+            type === "mandatory"
               ? "text-green-600 border-green-600"
               : "text-orange-600 border-orange-600"
           }
         >
-          {status}
+          {type}
         </Badge>
       );
     },

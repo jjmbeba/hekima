@@ -18,19 +18,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import useViewStore from "@/stores/view-store";
+import { useViewStore } from "@/stores/store";
 
 const options = [
   {
-    view: "list",
+    view: "List",
     label: "Lists",
   },
   {
-    view: "cards",
+    view: "Cards",
     label: "Cards",
   },
   {
-    view: "calendar",
+    view: "Calendar",
     label: "Calendar",
   },
 ];
@@ -70,6 +70,7 @@ export default function ViewOptions() {
                     if (currentValue) changeView(currentValue);
                     setOpen(false);
                   }}
+                  className="cursor-pointer"
                 >
                   <Check
                     className={cn(

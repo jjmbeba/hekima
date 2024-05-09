@@ -1,6 +1,6 @@
 "use client";
 
-import useViewStore from "@/stores/view-store";
+import { useViewStore } from "@/stores/store";
 import React from "react";
 import EventsCalendarView from "./EventsCalendarView";
 import EventsCardList from "./EventsCardList";
@@ -11,13 +11,13 @@ const EventsView = ({ events }: { events: Tables<"events">[] }) => {
   const [view] = useViewStore((state) => [state.view]);
 
   switch (view) {
-    case "list":
-      return <EventsTable events={events!}/>;
+    case "List":
+      return <EventsTable events={events!} />;
       break;
-    case "cards":
+    case "Cards":
       return <EventsCardList events={events!} />;
       break;
-    case "calendar":
+    case "Calendar":
       return <EventsCalendarView events={events!} />;
       break;
 

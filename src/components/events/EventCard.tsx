@@ -11,19 +11,26 @@ export default function EventCard({
   date,
   description,
   location,
-  status
+  type,
 }: Props) {
   return (
     <Link href={`/events/${id}`}>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">{name}</CardTitle>
-          <Badge variant={'outline'} className={status === 'mandatory' ? 'text-green-600 border-green-600' : 'text-orange-600 border-orange-600'}>
-            {status}
+          <Badge
+            variant={"outline"}
+            className={
+              type === "mandatory"
+                ? "text-green-600 border-green-600"
+                : "text-orange-600 border-orange-600"
+            }
+          >
+            {type}
           </Badge>
         </CardHeader>
         <CardContent>
-          <div className="text-xl font-bold">{description}</div>
+          <div className="text-xl font-bold max-h-[3.5rem] text-ellipsis">{description}</div>
           <p className="text-sm text-muted-foreground mt-2 font-medium">
             @ {location}
           </p>

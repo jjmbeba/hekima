@@ -21,3 +21,17 @@ export const loginSchema = z.object({
     message: "Password must be at least 6 characters",
   }),
 });
+
+export const addEventSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name should be at least 2 characters",
+  }),
+  description: z.string().min(2, {
+    message: "Description should be at least 2 characters",
+  }),
+  type: z.enum(["mandatory", "optional"]),
+  location: z.string().min(2, {
+    message: "Location should be at least 2 characters",
+  }),
+  date: z.date(),
+});

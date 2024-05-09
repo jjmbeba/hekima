@@ -12,7 +12,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   const { data, error } = await supabase.auth.getUser();
 
-  // if (!data.user || error) redirect("/login");
+  if (!data.user || error) redirect("/login");
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

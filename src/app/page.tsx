@@ -1,8 +1,11 @@
 import Navbar from "@/components/navigation/Navbar";
 import { LampContainer } from "@/components/ui/lamp";
-import Image from "next/image";
+import { createClient } from "@/utils/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createClient();
+
+  const { data } = await supabase.auth.getUser();
   return (
     <>
       <Navbar />

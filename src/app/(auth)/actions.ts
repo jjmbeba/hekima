@@ -57,6 +57,20 @@ export async function signInWithGoogle() {
   if (error) throw new Error(error.message);
 }
 
-export async function checkIfUserIsAdmin(){
-  return true;
+export async function checkIfUserIsAdmin() {
+  const supabase = createClient();
+
+  const { data: user } = await supabase.auth.getUser();
+
+  if (!user.user) throw new Error("User is unauthorized");
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.user.id);
+
+
+  if (!data) throw new Error("User not found");
+
+  return data?.[0].is_admin;
 }

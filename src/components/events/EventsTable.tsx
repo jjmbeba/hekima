@@ -7,9 +7,8 @@ type Props = {
 };
 
 const EventsTable = ({ events }: Props) => {
-
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-3">
       <DataTable columns={columns} data={events} />
     </div>
   );
