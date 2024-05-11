@@ -5,7 +5,6 @@ import Logo from "../common/Logo";
 import { Button } from "../ui/button";
 
 import { createClient } from "@/utils/supabase/client";
-import { useQuery } from "@tanstack/react-query";
 import UserMenu from "../common/UserMenu";
 
 const Navbar = async () => {

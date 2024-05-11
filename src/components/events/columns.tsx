@@ -112,7 +112,6 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
     },
   });
 
-  console.log(isUserAdmin);
 
   if (!isUserAdmin) return;
 

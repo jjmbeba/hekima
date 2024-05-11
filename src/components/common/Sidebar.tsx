@@ -21,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { ModeToggle } from "../ModeToggle";
 
 const Sidebar = () => {
   const pages = [
@@ -77,6 +78,12 @@ const Sidebar = () => {
           ))}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 py-4">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <ModeToggle variant={'ghost'}/>
+            </TooltipTrigger>
+            <TooltipContent side="right">Theme</TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
