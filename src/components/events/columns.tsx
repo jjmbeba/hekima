@@ -190,7 +190,7 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
         </DropdownMenu>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit event '{event.name}'</DialogTitle>
+            <DialogTitle>Edit event &apos;{event.name}&apos;</DialogTitle>
           </DialogHeader>
           <EditEventForm event={event!} setEditMenuOpen={setEditMenuOpen} />
         </DialogContent>
@@ -199,7 +199,7 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the
-              event '{event.name}' and remove the data from our servers.
+              event &apos;{event.name}&apos; and remove the data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
