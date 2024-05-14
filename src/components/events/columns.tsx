@@ -2,10 +2,10 @@
 
 import { Tables } from "@/database.types";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Loader, MoreHorizontal } from "lucide-react";
 
 import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,9 +14,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Badge } from "../ui/badge";
 import { Checkbox } from "../ui/checkbox";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { deleteEvent } from "./actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import EditEventForm from "../forms/EditEventForm";
+import { useState } from "react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -105,6 +128,9 @@ export const columns: ColumnDef<Event>[] = [
 ];
 
 const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
+  const router = useRouter();
+  const [editMenuOpen, setEditMenuOpen] = useState(false);
+
   const { data: isUserAdmin } = useQuery({
     queryKey: ["isAdmin"],
     queryFn: async () => {
@@ -112,25 +138,83 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
     },
   });
 
+  const { mutate, isPending: isDeleteEventPending } = useMutation({
+    mutationKey: ["events"],
+    mutationFn: (eventID: number) => deleteEvent(eventID),
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onMutate: () => {
+      toast(
+        <div className="flex items-center">
+          <Loader className="mr-2 h-4 w-4 animate-spin" /> Deleting event...
+        </div>,
+        {
+          id: "delete-loading",
+        }
+      );
+    },
+    onSuccess: () => {
+      toast.dismiss("delete-loading");
+      toast.success("Event deleted successfully");
+      router.refresh();
+    },
+  });
 
   if (!isUserAdmin) return;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Edit event</DropdownMenuItem>
-        <DropdownMenuItem className="text-destructive">
-          Delete event
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <AlertDialog>
+      <Dialog open={editMenuOpen} onOpenChange={setEditMenuOpen}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <div className="flex flex-col">
+              <DialogTrigger>
+                <DropdownMenuItem>Edit event</DropdownMenuItem>
+              </DialogTrigger>
+              <AlertDialogTrigger>
+                <DropdownMenuItem className="text-destructive">
+                  Delete event
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit event '{event.name}'</DialogTitle>
+          </DialogHeader>
+          <EditEventForm event={event!} setEditMenuOpen={setEditMenuOpen} />
+        </DialogContent>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the
+              event '{event.name}' and remove the data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => mutate(event.id)}
+              className={`${buttonVariants({
+                variant: "destructive",
+              })}`}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </Dialog>
+    </AlertDialog>
   );
 };

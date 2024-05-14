@@ -3,7 +3,6 @@ import { Tables } from "@/database.types";
 import dayjs from "dayjs";
 import { Link } from "next-view-transitions";
 import { Badge } from "../ui/badge";
-import { MoreHorizontal } from "lucide-react";
 
 type Props = Tables<"events">;
 export default function EventCard({
@@ -31,7 +30,7 @@ export default function EventCard({
           </Badge>
         </CardHeader>
         <CardContent>
-          <div className="text-xl font-bold max-h-[3.5rem] text-ellipsis">{description}</div>
+          <div className="text-xl font-bold description">{description}</div>
           <p className="text-sm text-muted-foreground mt-2 font-medium">
             @ {location}
           </p>

@@ -24,7 +24,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
           <SearchBar />
           <UserMenu />
         </header>
-        <main>{children}</main>
+        <main className="sm:py-4 sm:px-14">
+          {children}
+        </main>
       </div>
     </div>
   );

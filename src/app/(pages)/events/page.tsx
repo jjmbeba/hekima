@@ -20,9 +20,14 @@ const page = async () => {
   return (
     <div>
       {events?.length === 0 ? (
-        <div className="w-full min-h-screen flex items-center justify-center">
-          <Ghost className="w-28 h-28 ml-10" />
-          <h1 className="text-2xl font-bold">No available events.</h1>
+        <div className="mt-8">
+          <div className="flex justify-end">
+            <AddEventButton />
+          </div>
+          <div className="w-full min-h-screen flex items-center justify-center">
+            <Ghost className="w-28 h-28 ml-10" />
+            <h1 className="text-2xl font-bold">No available events.</h1>
+          </div>
         </div>
       ) : (
         <div className="sm:py-4 sm:px-14">
@@ -32,9 +37,11 @@ const page = async () => {
             </h1>
             <ViewOptions />
           </div>
-          {isUserAdmin ? <div className="flex justify-end mt-5">
-            <AddEventButton />
-          </div> : null}
+          {isUserAdmin ? (
+            <div className="flex justify-end mt-5">
+              <AddEventButton />
+            </div>
+          ) : null}
           <EventsView events={events!} />
         </div>
       )}

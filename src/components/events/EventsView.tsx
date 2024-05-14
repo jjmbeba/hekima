@@ -18,7 +18,7 @@ const EventsView = ({ events }: { events: Tables<"events">[] }) => {
       return <EventsCardList events={events!} />;
       break;
     case "Calendar":
-      return <EventsCalendarView events={events!} />;
+      // return <EventsCalendarView events={events!} />;
       break;
 
     default:

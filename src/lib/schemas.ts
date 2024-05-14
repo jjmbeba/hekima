@@ -35,3 +35,7 @@ export const addEventSchema = z.object({
   }),
   date: z.date(),
 });
+
+export const editEventSchema = addEventSchema.extend({
+  id: z.number(),
+});
