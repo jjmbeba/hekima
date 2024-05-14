@@ -2,7 +2,7 @@
 
 import { Tables } from "@/database-types";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Loader, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Loader, LucideProps, MoreHorizontal } from "lucide-react";
 
 import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -39,7 +39,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import EditEventForm from "../forms/EditEventForm";
-import { useState } from "react";
+import React, { useState } from "react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -122,12 +122,20 @@ export const columns: ColumnDef<Event>[] = [
     cell: ({ row }) => {
       const event = row.original;
 
-      return <ActionsMenu event={event} />;
+      return <ActionsMenu event={event} icon={MoreHorizontal} />;
     },
   },
 ];
 
-const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
+export const ActionsMenu = ({
+  event,
+  icon: Icon,
+}: {
+  event: Tables<"events">;
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >;
+}) => {
   const router = useRouter();
   const [editMenuOpen, setEditMenuOpen] = useState(false);
 
@@ -170,7 +178,7 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+              <Icon className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
