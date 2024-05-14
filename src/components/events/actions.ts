@@ -53,3 +53,16 @@ export async function editEvent(edittedEvent: z.infer<typeof editEventSchema>) {
 
   return data[0];
 }
+
+export async function fetchSingleEvent(id: number) {
+  const supabase = createClient();
+
+  const { error, data } = await supabase
+    .from("events")
+    .select("*")
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  return data[0];
+}

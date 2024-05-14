@@ -23,9 +23,9 @@ const BreadCrumbs = () => {
 
   return (
     <Breadcrumb className="hidden md:flex">
-      <BreadcrumbList>
+      <BreadcrumbList className="flex items-center">
         {splitPathname.map((text, index) => (
-          <div key={text}>
+          <div key={text} className="flex items-center gap-2">
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href={constructLink(index)}>
