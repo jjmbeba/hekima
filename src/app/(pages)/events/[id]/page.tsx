@@ -40,12 +40,12 @@ const page = async ({ params }: { params: { id: string } }) => {
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
             <div className="flex items-center gap-4">
-              <Button variant="outline" size="icon" className="h-7 w-7">
-                <Link href={"/events"}>
+              <Link href={"/events"}>
+                <Button variant="outline" size="icon" className="h-7 w-7">
                   <ChevronLeft className="h-4 w-4" />
                   <span className="sr-only">Back</span>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
               <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0">
                 {event.name}
               </h1>
@@ -119,9 +119,9 @@ const page = async ({ params }: { params: { id: string } }) => {
                   </CardHeader>
                   <CardContent>
                     <Input
-                      value={`@ ${event.location} - ${dayjs(
-                        event.date
-                      ).format("ddd, D MMM YYYY")}`}
+                      value={`@ ${event.location} - ${dayjs(event.date).format(
+                        "ddd, D MMM YYYY"
+                      )}`}
                       disabled
                     />
                   </CardContent>

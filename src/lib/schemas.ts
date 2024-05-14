@@ -39,3 +39,9 @@ export const addEventSchema = z.object({
 export const editEventSchema = addEventSchema.extend({
   id: z.number(),
 });
+
+export const addClassSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters",
+  }),
+});

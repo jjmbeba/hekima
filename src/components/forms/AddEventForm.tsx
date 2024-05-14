@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { CalendarIcon, Loader } from "lucide-react";
-import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { addEvent } from "../events/actions";
 import { Calendar } from "../ui/calendar";
@@ -32,7 +32,6 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { useRouter } from "next/navigation";
 
 const AddEventForm = () => {
   const router = useRouter();
