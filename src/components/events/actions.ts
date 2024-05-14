@@ -54,6 +54,14 @@ export async function editEvent(edittedEvent: z.infer<typeof editEventSchema>) {
   return data[0];
 }
 
+export async function fetchAllEvents() {
+  const supabase = createClient();
+
+  const { data: events, error } = await supabase.from("events").select("*");
+
+  return { events, error };
+}
+
 export async function fetchSingleEvent(id: number) {
   const supabase = createClient();
 

@@ -2,6 +2,7 @@ import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import ViewOptions from "@/components/common/ViewOptions";
 import AddEventButton from "@/components/events/AddEventButton";
 import EventsView from "@/components/events/EventsView";
+import { fetchAllEvents } from "@/components/events/actions";
 import { createClient } from "@/utils/supabase/server";
 import { Ghost } from "lucide-react";
 import { Metadata } from "next";
@@ -11,9 +12,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const supabase = createClient();
-
-  const { data: events, error } = await supabase.from("events").select("*");
+  const { events } = await fetchAllEvents();
 
   const isUserAdmin = await checkIfUserIsAdmin();
 
@@ -24,7 +23,7 @@ const page = async () => {
           <div className="flex justify-end">
             <AddEventButton />
           </div>
-          <div className="w-full min-h-screen flex items-center justify-center">
+          <div className="w-full min-h-[69vh] flex items-center justify-center">
             <Ghost className="w-28 h-28 ml-10" />
             <h1 className="text-2xl font-bold">No available events.</h1>
           </div>

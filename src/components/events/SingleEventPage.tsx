@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import {
   Card,
   CardContent,
@@ -20,8 +20,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Tables } from "@/database-types";
-import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import dayjs from "dayjs";
+import DeleteEventButton from "./DeleteEventButton";
 
 const SingleEventPage = async ({ event }: { event: Tables<"events"> }) => {
   const isUserAdmin = await checkIfUserIsAdmin();
@@ -36,15 +36,13 @@ const SingleEventPage = async ({ event }: { event: Tables<"events"> }) => {
                 <ChevronLeft className="h-4 w-4" />
                 <span className="sr-only">Back</span>
               </Button>
-              <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+              <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0">
                 {event.name}
               </h1>
               {isUserAdmin && (
                 <div className="hidden items-center gap-2 md:ml-auto md:flex">
                   <Button size="sm">Edit Event</Button>
-                  <Button size="sm" variant={"destructive"}>
-                    Delete Event
-                  </Button>
+                 <DeleteEventButton event={event}/>
                 </div>
               )}
             </div>
@@ -111,9 +109,9 @@ const SingleEventPage = async ({ event }: { event: Tables<"events"> }) => {
                   </CardHeader>
                   <CardContent>
                     <Input
-                      defaultValue={`@ ${event.location} - ${dayjs(event.date).format(
-                        "ddd, D MMM YYYY"
-                      )}`}
+                      defaultValue={`@ ${event.location} - ${dayjs(
+                        event.date
+                      ).format("ddd, D MMM YYYY")}`}
                       disabled
                     />
                   </CardContent>
