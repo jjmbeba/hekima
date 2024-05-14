@@ -1,4 +1,4 @@
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import EventCard from "./EventCard";
 
 const EventsCardList = ({ events }: { events: Tables<"events">[] }) => {
@@ -11,4 +11,4 @@ const EventsCardList = ({ events }: { events: Tables<"events">[] }) => {
   );
 };
 
-export default EventsCardList
+export default EventsCardList;

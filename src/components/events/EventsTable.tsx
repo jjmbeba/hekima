@@ -1,4 +1,4 @@
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { DataTable } from "../ui/data-table";
 import { columns } from "./columns";
 

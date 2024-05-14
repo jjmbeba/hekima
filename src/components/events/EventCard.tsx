@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import dayjs from "dayjs";
 import { Link } from "next-view-transitions";
 import { Badge } from "../ui/badge";

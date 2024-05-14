@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { editEventSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";

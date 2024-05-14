@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import dayjs from "dayjs";
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { Badge } from "../ui/badge";
 import { useEventStore } from "@/stores/store";
 

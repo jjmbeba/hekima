@@ -4,7 +4,7 @@ import { useViewStore } from "@/stores/store";
 import React from "react";
 import EventsCalendarView from "./EventsCalendarView";
 import EventsCardList from "./EventsCardList";
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import EventsTable from "./EventsTable";
 
 const EventsView = ({ events }: { events: Tables<"events">[] }) => {

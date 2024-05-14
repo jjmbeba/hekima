@@ -1,6 +1,6 @@
 "use client";
 
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Loader, MoreHorizontal } from "lucide-react";
 
@@ -199,7 +199,8 @@ const ActionsMenu = ({ event }: { event: Tables<"events"> }) => {
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the
-              event &apos;{event.name}&apos; and remove the data from our servers.
+              event &apos;{event.name}&apos; and remove the data from our
+              servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

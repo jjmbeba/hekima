@@ -1,5 +1,5 @@
 // src/stores/counter-store.ts
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { create } from "zustand";
 
 export type ViewState = {

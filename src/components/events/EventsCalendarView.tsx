@@ -1,4 +1,4 @@
-import { Tables } from "@/database.types";
+import { Tables } from "@/database-types";
 import { ScrollArea } from "../ui/scroll-area";
 import MiniEventCard from "./MiniEventCard";
 import EventCalendar from "./EventCalendar";
