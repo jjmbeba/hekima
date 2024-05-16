@@ -1,0 +1,32 @@
+"use server";
+
+import { addExamSchema } from "@/lib/schemas";
+import { createClient } from "@/utils/supabase/server";
+import { z } from "zod";
+
+export async function fetchAllExams() {
+  const supabase = createClient();
+
+  const { data: exams, error } = await supabase.from("exams").select("*");
+
+  if (error) throw new Error(error.message);
+
+  return exams;
+}
+
+export async function addNewExam(newExam: z.infer<typeof addExamSchema>) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("exams")
+    .insert([
+      {
+        ...newExam,
+      },
+    ])
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data[0];
+}

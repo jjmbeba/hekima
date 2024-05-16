@@ -19,7 +19,9 @@ const page = async () => {
     <div>
       {classes?.length === 0 ? (
         <div className="mt-8">
-          <div className="flex justify-end">{/* <AddEventButton /> */}</div>
+          <div className="flex justify-end">
+            {isUserAdmin && <AddClassButton/>}
+          </div>
           <div className="w-full min-h-[69vh] flex items-center justify-center">
             <Ghost className="w-28 h-28 ml-10" />
             <h1 className="text-2xl font-bold">No available classes.</h1>

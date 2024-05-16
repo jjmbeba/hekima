@@ -1,46 +1,43 @@
 import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import ViewOptions from "@/components/common/ViewOptions";
-import AddEventButton from "@/components/events/AddEventButton";
-import EventsView from "@/components/events/EventsView";
-import { fetchAllEvents } from "@/components/events/actions";
+import AddExamButton from "@/components/exams/AddExamButton";
+import { fetchAllExams } from "@/components/exams/actions";
 import { Ghost } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Events",
+  title: "Exams",
 };
 
 const page = async () => {
-  const { events } = await fetchAllEvents();
+  const exams = await fetchAllExams();
 
   const isUserAdmin = await checkIfUserIsAdmin();
 
   return (
     <div>
-      {events?.length === 0 ? (
+      {exams?.length === 0 ? (
         <div className="mt-8">
           <div className="flex justify-end">
-            {isUserAdmin && <AddEventButton />}
+            {isUserAdmin && <AddExamButton />}
           </div>
           <div className="w-full min-h-[69vh] flex items-center justify-center">
             <Ghost className="w-28 h-28 ml-10" />
-            <h1 className="text-2xl font-bold">No available events.</h1>
+            <h1 className="text-2xl font-bold">No exams found.</h1>
           </div>
         </div>
       ) : (
         <div className="sm:py-4 sm:px-14">
           <div className="flex items-center justify-between">
-            <h1 className="font-bold text-2xl">
-              Available events ({events?.length})
-            </h1>
+            <h1 className="font-bold text-2xl">Exams ({exams?.length})</h1>
             <ViewOptions />
           </div>
           {isUserAdmin ? (
             <div className="flex justify-end mt-5">
-              <AddEventButton />
+              <AddExamButton />
             </div>
           ) : null}
-          <EventsView events={events!} />
+          {/* <EventsView events={events!} /> */}
         </div>
       )}
     </div>

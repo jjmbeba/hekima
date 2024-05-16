@@ -49,3 +49,18 @@ export const addClassSchema = z.object({
 export const editClassSchema = addClassSchema.extend({
   id: z.number(),
 });
+
+export const addExamSchema = z.object({
+  subject: z.string().min(2, {
+    message: "Subject name must be atleast 2 characters",
+  }),
+  examType: z.enum(["opening-term", "mid-term", "end-term", "cat-1", "cat-2"], {
+    required_error: "Exam type is required",
+  }),
+  examPeriod: z.enum(["first-term", "second-term", "third-term"], {
+    required_error: "Exam period is required",
+  }),
+  date: z.date({
+    required_error: "Date is required",
+  }),
+});
