@@ -1,6 +1,6 @@
 "use server";
 
-import { addExamSchema } from "@/lib/schemas";
+import { addExamSchema, editExamSchema } from "@/lib/schemas";
 import { createClient } from "@/utils/supabase/server";
 import { z } from "zod";
 
@@ -50,7 +50,21 @@ export async function deleteExam(examID: number) {
 
   const { error } = await supabase.from("exams").delete().eq("id", examID);
 
-  if(error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
   return;
+}
+
+export async function editExam(edittedExam: z.infer<typeof editExamSchema>) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("exams")
+    .update({ ...edittedExam, grade: parseInt(edittedExam.grade) })
+    .eq("id", edittedExam.id)
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data[0];
 }

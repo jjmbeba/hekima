@@ -1,6 +1,6 @@
 "use client";
 
-import { addExamSchema } from "@/lib/schemas";
+import { addExamSchema, editExamSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { addNewExam } from "../exams/actions";
+import { addNewExam, editExam } from "../exams/actions";
 import { Button } from "../ui/button";
 import {
   Select,
@@ -32,13 +32,23 @@ import dayjs from "dayjs";
 import { CalendarIcon, Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchAllClasses } from "../classes/actions";
-const EditExamForm = () => {
+import { Dispatch, SetStateAction } from "react";
+import { Tables } from "@/database-types";
+const EditExamForm = ({
+  exam,
+  setEditMenuOpen,
+}: {
+  exam: Tables<"exams">;
+  setEditMenuOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof addExamSchema>>({
-    resolver: zodResolver(addExamSchema),
+  const form = useForm<z.infer<typeof editExamSchema>>({
+    resolver: zodResolver(editExamSchema),
     defaultValues: {
-      subject: "",
+      ...exam,
+      grade: exam.grade.toString(),
+      date: new Date(exam.date),
     },
   });
 
@@ -51,10 +61,10 @@ const EditExamForm = () => {
     },
   });
 
-  const { mutate, isPending: isAddExamPending } = useMutation({
+  const { mutate, isPending: isEditExamPending } = useMutation({
     mutationKey: ["exams"],
-    mutationFn: async (values: z.infer<typeof addExamSchema>) => {
-      const data = await addNewExam(values);
+    mutationFn: async (values: z.infer<typeof editExamSchema>) => {
+      const data = await editExam(values);
 
       return data;
     },
@@ -62,13 +72,13 @@ const EditExamForm = () => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
-      toast.success(`Exam added successfully`);
+      toast.success(`Exam editted successfully`);
       router.refresh();
       form.reset();
     },
   });
 
-  function onSubmit(values: z.infer<typeof addExamSchema>) {
+  function onSubmit(values: z.infer<typeof editExamSchema>) {
     mutate(values);
   }
 
@@ -256,9 +266,11 @@ const EditExamForm = () => {
             )}
           />
         </div>
-        <Button type="submit" disabled={isAddExamPending}>
-          {isAddExamPending && <Loader className="h-4 w-4 animate-spin mr-2" />}
-          Add exam
+        <Button type="submit" disabled={isEditExamPending}>
+          {isEditExamPending && (
+            <Loader className="h-4 w-4 animate-spin mr-2" />
+          )}
+          Edit exam
         </Button>
       </form>
     </Form>
