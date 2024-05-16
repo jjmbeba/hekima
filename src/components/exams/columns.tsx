@@ -41,6 +41,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { deleteExam } from "./actions";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -186,28 +187,28 @@ export const ActionsMenu = ({
     },
   });
 
-//   const { mutate, isPending: isDeleteEventPending } = useMutation({
-//     mutationKey: ["events"],
-//     mutationFn: (eventID: number) => deleteEvent(eventID),
-//     onError: (error) => {
-//       toast.error(error.message);
-//     },
-//     onMutate: () => {
-//       toast(
-//         <div className="flex items-center">
-//           <Loader className="mr-2 h-4 w-4 animate-spin" /> Deleting event...
-//         </div>,
-//         {
-//           id: "delete-loading",
-//         }
-//       );
-//     },
-//     onSuccess: () => {
-//       toast.dismiss("delete-loading");
-//       toast.success("Event deleted successfully");
-//       router.refresh();
-//     },
-//   });
+  const { mutate, isPending: isDeleteExamPending } = useMutation({
+    mutationKey: ["exams"],
+    mutationFn: (examID: number) => deleteExam(examID),
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onMutate: () => {
+      toast(
+        <div className="flex items-center">
+          <Loader className="mr-2 h-4 w-4 animate-spin" /> Deleting exam...
+        </div>,
+        {
+          id: "delete-loading",
+        }
+      );
+    },
+    onSuccess: () => {
+      toast.dismiss("delete-loading");
+      toast.success("Exam deleted successfully");
+      router.refresh();
+    },
+  });
 
   if (!isUserAdmin) return;
 
@@ -254,7 +255,7 @@ export const ActionsMenu = ({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-            //   onClick={() => mutate(event.id)}
+              onClick={() => mutate(exam.id)}
               className={`${buttonVariants({
                 variant: "destructive",
               })}`}

@@ -32,12 +32,25 @@ export async function addNewExam(newExam: z.infer<typeof addExamSchema>) {
   return data[0];
 }
 
-export async function fetchSingleExam(examID:number){
-    const supabase = createClient();
+export async function fetchSingleExam(examID: number) {
+  const supabase = createClient();
 
-    const { data: exam, error } = await supabase.from("exams").select("*").eq('id', examID);
+  const { data: exam, error } = await supabase
+    .from("exams")
+    .select("*")
+    .eq("id", examID);
 
-    if (error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
-    return exam[0];
+  return exam[0];
+}
+
+export async function deleteExam(examID: number) {
+  const supabase = createClient();
+
+  const { error } = await supabase.from("exams").delete().eq("id", examID);
+
+  if(error) throw new Error(error.message);
+
+  return;
 }
