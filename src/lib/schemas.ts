@@ -45,3 +45,7 @@ export const addClassSchema = z.object({
     message: "Name must be at least 2 characters",
   }),
 });
+
+export const editClassSchema = addClassSchema.extend({
+  id: z.number(),
+});

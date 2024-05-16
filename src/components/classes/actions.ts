@@ -1,6 +1,6 @@
 "use server";
 
-import { addClassSchema } from "@/lib/schemas";
+import { addClassSchema, editClassSchema } from "@/lib/schemas";
 import { createClient } from "@/utils/supabase/server";
 import { z } from "zod";
 
@@ -39,4 +39,18 @@ export async function deleteClass(classID: number) {
   if (error) throw new Error(error.message);
 
   return;
+}
+
+export async function editClass(edittedClass: z.infer<typeof editClassSchema>) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("classes")
+    .update({ ...edittedClass })
+    .eq("id", edittedClass.id)
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data[0];
 }

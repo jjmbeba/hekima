@@ -38,6 +38,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { deleteClass } from "./actions";
+import EditClassForm from "../forms/EditClassForm";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -168,9 +169,9 @@ export const ActionsMenu = ({
         </DropdownMenu>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit event &apos;{cls.name}&apos;</DialogTitle>
+            <DialogTitle>Edit class &apos;{cls.name}&apos;</DialogTitle>
           </DialogHeader>
-          {/* <EditEventForm event={class!} setEditMenuOpen={setEditMenuOpen} /> */}
+          <EditClassForm cls={cls!} setEditMenuOpen={setEditMenuOpen} />
         </DialogContent>
         <AlertDialogContent>
           <AlertDialogHeader>
