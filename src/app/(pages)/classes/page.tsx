@@ -1,9 +1,15 @@
 import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import AddClassButton from "@/components/classes/AddClassButton";
+import ClassesView from "@/components/classes/ClassesView";
 import { fetchAllClasses } from "@/components/classes/actions";
 import ViewOptions from "@/components/common/ViewOptions";
 import { Ghost } from "lucide-react";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title:"Classes"
+}
 
 const page = async () => {
   const classes = await fetchAllClasses();
@@ -32,7 +38,7 @@ const page = async () => {
               <AddClassButton />
             </div>
           ) : null}
-          {/* <classesView classes={classes!} /> */}
+          <ClassesView classes={classes!} />
         </div>
       )}
     </div>

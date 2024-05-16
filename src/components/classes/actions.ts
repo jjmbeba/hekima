@@ -30,3 +30,13 @@ export async function addNewClass(newClass: z.infer<typeof addClassSchema>) {
 
   return data[0];
 }
+
+export async function deleteClass(classID: number) {
+  const supabase = createClient();
+
+  const { error } = await supabase.from("classes").delete().eq("id", classID);
+
+  if (error) throw new Error(error.message);
+
+  return;
+}
