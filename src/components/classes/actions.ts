@@ -54,3 +54,16 @@ export async function editClass(edittedClass: z.infer<typeof editClassSchema>) {
 
   return data[0];
 }
+
+export async function fetchSingleClass(classID: number) {
+  const supabase = createClient();
+
+  const { data: cls, error } = await supabase
+    .from("classes")
+    .select("*")
+    .eq("id", classID);
+
+  if (error) throw new Error(error.message);
+
+  return cls[0];
+}

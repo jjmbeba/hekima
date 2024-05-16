@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { addNewExam } from "../exams/actions";
@@ -31,6 +31,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import dayjs from "dayjs";
 import { CalendarIcon, Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { fetchAllClasses } from "../classes/actions";
 const AddExamForm = () => {
   const router = useRouter();
 
@@ -38,6 +39,15 @@ const AddExamForm = () => {
     resolver: zodResolver(addExamSchema),
     defaultValues: {
       subject: "",
+    },
+  });
+
+  const { data: classes, isLoading: isFetchClassesLoading } = useQuery({
+    queryKey: ["classes"],
+    queryFn: async () => {
+      const classes = await fetchAllClasses();
+
+      return classes;
     },
   });
 
@@ -172,6 +182,38 @@ const AddExamForm = () => {
             )}
           />
         </div>
+        <div className="flex items-end gap-2 *:w-1/2">
+          <FormField
+            control={form.control}
+            name="grade"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Class</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  disabled={isFetchClassesLoading}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a class" />
+                      {isFetchClassesLoading && (
+                        <Loader className="ml-2 w-4 h-4 animate-spin" />
+                      )}
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {classes?.map(({ id, name }) => (
+                      <SelectItem key={id} value={id.toString()}>
+                        {name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         <FormField
           control={form.control}
           name="date"
@@ -213,6 +255,7 @@ const AddExamForm = () => {
             </FormItem>
           )}
         />
+        </div>
         <Button type="submit" disabled={isAddExamPending}>
           {isAddExamPending && <Loader className="h-4 w-4 animate-spin mr-2" />}
           Add exam

@@ -63,4 +63,8 @@ export const addExamSchema = z.object({
   date: z.date({
     required_error: "Date is required",
   }),
+  grade: z
+    .string({
+      required_error: "Grade is required",
+    })
 });

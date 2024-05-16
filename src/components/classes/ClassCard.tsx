@@ -18,7 +18,7 @@ export default function ClassCard({ id, name, created_at }: Props) {
                 buttonVariants({
                   variant: "link",
                 }),
-                "text-md font-medium pl-0 pt-0"
+                "text-lg font-medium pl-0 pt-0"
               )}
             >
               {name}

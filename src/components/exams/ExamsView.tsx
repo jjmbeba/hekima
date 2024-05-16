@@ -2,18 +2,18 @@
 
 import { Tables } from "@/database-types";
 import { useViewStore } from "@/stores/store";
-import EventsCardList from "./EventsCardList";
-import EventsTable from "./EventsTable";
+import ExamCardList from "./ExamCardList";
+import ExamsTable from "./ExamsTable";
 
-const EventsView = ({ events }: { events: Tables<"events">[] }) => {
+const ExamsView = ({ exams }: { exams: Tables<"exams">[] }) => {
   const [view] = useViewStore((state) => [state.view]);
 
   switch (view) {
     case "List":
-      return <EventsTable events={events!} />;
+      return <ExamsTable exams={exams!} />;
       break;
     case "Cards":
-      return <EventsCardList events={events!} />;
+      return <ExamCardList exams={exams!} />;
       break;
     case "Calendar":
       // return <EventsCalendarView events={events!} />;
@@ -24,4 +24,4 @@ const EventsView = ({ events }: { events: Tables<"events">[] }) => {
   }
 };
 
-export default EventsView;
+export default ExamsView;

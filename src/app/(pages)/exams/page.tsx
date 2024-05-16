@@ -1,6 +1,7 @@
 import { checkIfUserIsAdmin } from "@/app/(auth)/actions";
 import ViewOptions from "@/components/common/ViewOptions";
 import AddExamButton from "@/components/exams/AddExamButton";
+import ExamsView from "@/components/exams/ExamsView";
 import { fetchAllExams } from "@/components/exams/actions";
 import { Ghost } from "lucide-react";
 import { Metadata } from "next";
@@ -37,7 +38,7 @@ const page = async () => {
               <AddExamButton />
             </div>
           ) : null}
-          {/* <EventsView events={events!} /> */}
+          <ExamsView exams={exams!} />
         </div>
       )}
     </div>
