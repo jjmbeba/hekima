@@ -5,6 +5,8 @@ import dayjs from "dayjs";
 import { Link } from "next-view-transitions";
 import { Badge } from "../ui/badge";
 import { buttonVariants } from "../ui/button";
+import { MoreVertical } from "lucide-react";
+import { ActionsMenu } from "./columns";
 
 type Props = Tables<"exams">;
 export default function ExamCard({
@@ -14,6 +16,7 @@ export default function ExamCard({
   examType,
   grade,
   date,
+  created_at
 }: Props) {
   return (
     <Card>
@@ -31,18 +34,18 @@ export default function ExamCard({
               {subject}
             </CardTitle>
           </Link>
-          {/* <ActionsMenu
-            event={{
+          <ActionsMenu
+            exam={{
               id,
-              name,
+              subject,
               date,
-              description,
-              location,
-              type,
-              created_at,
+              examPeriod,
+              examType,
+              grade,
+              created_at
             }}
             icon={MoreVertical}
-          /> */}
+          />
         </div>
         <Badge
           variant={"outline"}
