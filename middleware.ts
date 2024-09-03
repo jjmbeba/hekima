@@ -22,7 +22,7 @@ export default clerkMiddleware((auth, req: NextRequest) => {
         return NextResponse.redirect(onboardingUrl)
     }
 
-    // If the user is logged in and the route is protected, let them view.
+    // If the user is logged in and the route is (protected), let them view.
     if (userId && !isPublicRoute(req)) return NextResponse.next()
 })
 
